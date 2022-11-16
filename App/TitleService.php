@@ -1,23 +1,20 @@
 <?php namespace App;
 
-use League\Flysystem\Filesystem;
-use League\Flysystem\StorageAttributes;
+use App\Repositories\TitleDataRepositoryInterface;
+use App\Repositories\TitleImageRepositoryInterface;
 
 class TitleService
 {
     public function __construct(
-        protected Filesystem $filesystem,
+        protected TitleImageRepositoryInterface $titleImageRepo,
+        protected TitleDataRepositoryInterface $titleDataRepo,
     ) {
     }
 
     public function getTitles(): array
     {
-        $titles = $this->filesystem
-            ->listContents('/')
-            ->filter(fn(StorageAttributes $attributes): bool => $attributes->isDir())
-            ->map(fn(StorageAttributes $attributes): Title => new Title($attributes->path()))
-            ->toArray();
+        $titles = $this->titleImageRepo->getAllTitles();
 
-        return $titles;
+        return $this->titleDataRepo->getTitles($titles);
     }
 }

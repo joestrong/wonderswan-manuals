@@ -1,3 +1,4 @@
 /vendor
-/data
+/data/*
+!/data/game-db.json
 /.idea

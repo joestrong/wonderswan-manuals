@@ -1,6 +1,7 @@
 {
     "require": {
         "php": "^8.0",
+        "ext-json": "*",
         "twig/twig": "^3.4",
         "league/flysystem": "^3.10"
     },

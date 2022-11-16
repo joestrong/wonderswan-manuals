@@ -17,7 +17,10 @@ $adapter = new League\Flysystem\Local\LocalFilesystemAdapter(
 );
 $filesystem = new League\Flysystem\Filesystem($adapter);
 
-$titleService = new TitleService($filesystem);
+$titleImageRepo = new \App\Repositories\FlysystemTitleImageRepository($filesystem);
+$titleDataRepo = new \App\Repositories\JsonTitleDataRepository($filesystem);
+
+$titleService = new TitleService($titleImageRepo, $titleDataRepo);
 $titles = $titleService->getTitles();
 
 $template = $twig->load('index.twig');
